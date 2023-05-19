@@ -98,6 +98,22 @@ window.onload = function () {
       },
     },
   });
+
+  // download function
+  document.getElementById("download").addEventListener("click", function () {
+    // get canvas
+    var canvas = document.getElementById("myChart");
+    // get image
+    var image = canvas.toDataURL("image/png", 1.0);
+    // create link
+    var link = document.createElement("a");
+    // set href
+    link.href = image;
+    // set download
+    link.download = "myChart.png";
+    // click link
+    link.click();
+  });
   // click handler for chart-tab
   document.getElementById("chart-tab").addEventListener("click", function () {
     myChart.data.datasets[0].data = getExpenseValues();
