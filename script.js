@@ -1,55 +1,108 @@
 // on window load
-window.onload = function() {
-    // create chart js bar chart for id myChart
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        // type of chart
-        type: 'bar',
-        // data
-        data: {
-            // labels
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            // datasets
-            datasets: [{
-                // label
-                label: '# of Votes',
-                // data
-                data: [12, 19, 3, 5, 2, 3],
-                // backgroundColor
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                  ],
-                  // borderColor
-                  borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                  ],
-                  // borderWidth
-                  borderWidth: 1
-            }]
+window.onload = function () {
+  function getIncomeValues() {
+    // get input value for january income
+    var januaryIncome = document.getElementById("januaryIncome").value;
+    // get input value for february income
+    var februaryIncome = document.getElementById("februaryIncome").value;
+    // get input value for march income
+    var marchIncome = document.getElementById("marchIncome").value;
+    // get input value for april income
+    var aprilIncome = document.getElementById("aprilIncome").value;
+    return [januaryIncome, februaryIncome, marchIncome, aprilIncome];
+  }
+
+  function getExpenseValues() {
+    // get input value for january expense
+    var januaryExpense = document.getElementById("januaryExpenses").value;
+    // get input value for february expense
+    var februaryExpense = document.getElementById("februaryExpenses").value;
+    // get input value for march expense
+    var marchExpense = document.getElementById("marchExpenses").value;
+    // get input value for april expense
+    var aprilExpense = document.getElementById("aprilExpenses").value;
+    return [januaryExpense, februaryExpense, marchExpense, aprilExpense];
+  }
+
+  // create chart js bar chart for id myChart
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myChart = new Chart(ctx, {
+    // type of chart
+    type: "bar",
+    // data
+    data: {
+      // labels
+      labels: ["January", "February", "March", "April"],
+      // datasets
+      datasets: [
+        {
+          // label
+          label: "Expenses",
+          // data
+          data: getExpenseValues(),
+          // backgroundColor
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(255, 99, 132, 0.2)",
+          ],
+          // borderColor
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(255, 99, 132, 1)",
+            "rgba(255, 99, 132, 1)",
+            "rgba(255, 99, 132, 1)",
+          ],
+          // borderWidth
+          borderWidth: 1,
         },
-        // options
-        options: {
-            // scales
-            scales: {
-                // yAxes
-                yAxes: [{
-                    // ticks
-                    ticks: {
-                        // beginAtZero
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-}
+        {
+          // label
+          label: "Income",
+          // data
+          data: getIncomeValues(),
+          // backgroundColor
+          backgroundColor: [
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+          ],
+          // borderColor
+          borderColor: [
+            "rgba(75, 192, 192, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(75, 192, 192, 1)",
+          ],
+          // borderWidth
+          borderWidth: 1,
+        },
+      ],
+    },
+    // options
+    options: {
+      // scales
+      scales: {
+        // yAxes
+        yAxes: [
+          {
+            // ticks
+            ticks: {
+              // beginAtZero
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+    },
+  });
+  // click handler for chart-tab
+  document.getElementById("chart-tab").addEventListener("click", function () {
+    myChart.data.datasets[0].data = getExpenseValues();
+    myChart.data.datasets[1].data = getIncomeValues();
+    // update chart
+    myChart.update();
+  });
+};
